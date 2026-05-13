@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NL2SQL Banking Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <div class="logo">
+      <div class="logo-icon">🏦</div>
+      <div>
+        <div class="logo-name">Banking Data Assistant</div>
+        <div class="logo-sub">NL2SQL · LangChain · Claude AI</div>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <div class="badge-row">
+        <span class="tech-badge">LangChain</span>
+        <span class="tech-badge">NL2SQL</span>
+        <span class="tech-badge">Claude</span>
+      </div>
+      <a href="https://github.com/szmsk/nl2sql-banking" target="_blank" class="gh-btn">GitHub ↗</a>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="card">
+      <div class="card-label">API KEY</div>
+      <div class="key-row">
+        <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+        <button class="eye-btn" onclick="toggleKey()">👁</button>
+      </div>
+      <div class="key-hint"><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">DATABASE SCHEMA</div>
+      <div class="schema-sub">Banking Demo · SQLite</div>
+      <div id="schemaTree"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">EXAMPLE QUERIES</div>
+      <div id="exampleList"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">ABOUT</div>
+      <div class="about-text">
+        Ask questions about banking data in plain English. The LangChain pipeline generates SQL, executes it, and interprets the results.
+      </div>
+      <div class="pipeline-steps">
+        <div class="pipe-step"><span class="pipe-num">1</span> NL question</div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step"><span class="pipe-num">2</span> LangChain → SQL</div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step"><span class="pipe-num">3</span> Execute on DB</div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step"><span class="pipe-num">4</span> Claude interprets</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main-panel">
+
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcomeMsg">
+        <div class="wlc-icon">🏦</div>
+        <h1>Banking Data Assistant</h1>
+        <p>Ask any question about the banking database in plain English. The system uses LangChain to generate SQL, execute it, and interpret the results.</p>
+        <div class="wlc-examples">
+          <div class="we-item" onclick="fillQ(this.textContent)">"Which customers have loans over 100,000 with an overdue status?"</div>
+          <div class="we-item" onclick="fillQ(this.textContent)">"Show total transaction volume by category this month"</div>
+          <div class="we-item" onclick="fillQ(this.textContent)">"Which Premium segment customers have the highest credit card utilisation?"</div>
+          <div class="we-item" onclick="fillQ(this.textContent)">"Compare average loan amounts across different customer segments"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-zone">
+      <div class="input-bar">
+        <textarea id="qInput"
+          placeholder="Ask anything about the banking data… (Enter to send)"
+          rows="1"
+          onkeydown="handleKey(event)"
+          oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="ask()">↑</button>
+      </div>
+      <div class="input-hint">Enter to send · Shift+Enter for new line · Ctrl+Enter to run</div>
+    </div>
+
+  </main>
+
+</div>
+
+<footer>
+  Built by <strong>Szymon Kloskowski</strong> ·
+  <a href="https://github.com/szmsk" target="_blank">github.com/szmsk</a> ·
+  LangChain · NL2SQL · Python · Flask · SQLite · Claude API
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
